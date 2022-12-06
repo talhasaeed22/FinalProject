@@ -39,7 +39,7 @@ router.post('/signup', [
         }
         success = true
         const token = jwt.sign(data, JWT_SECRET);
-        res.send({success:success, token:token, name:req.body.name});
+        res.send({success:success, token:token, name:req.body.name, email:req.body.email});
     } catch (error) {
         res.status(500).send("Internal Server Error Occurred. Please Try Again.")
     }
@@ -75,7 +75,7 @@ router.post('/login', [
         }
         success = true;
         const token  = jwt.sign(data, JWT_SECRET);
-        res.json({success:success, token:token, name:loggedinuser.name});
+        res.json({success:success, token:token, name:loggedinuser.name, email:loggedinuser.email});
     }catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error occurred");

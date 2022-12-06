@@ -1,13 +1,16 @@
 import { Text, View, Alert } from 'react-native'
 import React, { Component, createContext } from 'react'
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from 'expo-media-library'
+import {DataProvider} from 'recyclerlistview';
+
 export const AudioContext = createContext();
 export class AudioProvide extends Component {
     constructor(props){
         super(props)
         this.state = {
           audioFiles : [],
-          permissionError:false
+          permissionError:false,
+          dataProvider: new DataProvider((r1, r2)=> r1!==r2 )
         }
     }
 
@@ -22,6 +25,7 @@ export class AudioProvide extends Component {
     }
 
     getAudioFiles = async ()=>{
+      const {dataProvider, audioFiles} = this.state;
       let media = await MediaLibrary.getAssetsAsync({
         mediaType:'audio'
       })
@@ -29,7 +33,7 @@ export class AudioProvide extends Component {
         mediaType:'audio',
         first:media.totalCount
       })
-      this.setState({...this.state, audioFiles:media.assets})
+      this.setState({...this.state, dataProvider:dataProvider.cloneWithRows([...audioFiles, ...media.assets]) ,audioFiles:[...audioFiles, ...media.assets]})
       console.log(media.assets.length);
     }
 
@@ -61,13 +65,15 @@ export class AudioProvide extends Component {
       this.getPermission();
     }
   render() {
+    const {dataProvider, audioFiles} = this.state;
+    
     if(this.state.permissionError){
       return <View>
         <Text>It looks like you havent accepted the permission</Text>
       </View>
     }
     return (
-      <AudioContext.Provider value={{audioFiles:this.state.audioFiles}}>
+      <AudioContext.Provider value={{audioFiles, dataProvider}}>
         {this.props.children}
       </AudioContext.Provider>
     )

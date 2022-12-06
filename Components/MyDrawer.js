@@ -18,6 +18,8 @@ const MyDrawer = (props) => {
   const { switchMode, mode } = context
   const [token, setToken] = useState('')
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
   const [change, setChange] = useState(false)
   const handleMode = () => {
     switchMode();
@@ -31,8 +33,11 @@ const MyDrawer = (props) => {
   const setData = async () => {
     const namme = await AsyncStorage.getItem('name')
     const tokeen = await AsyncStorage.getItem('token')
+    const emmail = await AsyncStorage.getItem('email')
+
     setName(namme);
     setToken(tokeen);
+    setEmail(emmail)
   }
 
 
@@ -42,6 +47,7 @@ const MyDrawer = (props) => {
   const handleSignout = async ()=>{
     await AsyncStorage.removeItem('token');
     await AsyncStorage.removeItem('name')
+    await AsyncStorage.removeItem('email')
     Alert.alert('Signed Out Successfully')
     setChange(true)
     props.navigation.navigate('Login')
@@ -57,8 +63,8 @@ const MyDrawer = (props) => {
         <View style={{ flexDirection: 'row', alignItems: "center", padding: 15 }}>
           <Avatar.Image source={require('./Images/profile.jpg')} size={50} />
           <View style={{ flexDirection: 'column' }}>
-            <Text style={{ marginLeft: 15, fontSize: 15, color: mode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>M.Talha Saeed</Text>
-            <Text style={{ marginLeft: 15, fontWeight: 'bold', color: mode === 'light' ? 'gray' : 'white' }}>Talha@gmail.com</Text>
+            <Text style={{ marginLeft: 15, fontSize: 15, color: mode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>{token !== null ? `${name}` : ''}</Text>
+            <Text style={{ marginLeft: 15, fontWeight: 'bold', color: mode === 'light' ? 'gray' : 'white' }}>{token !== null ? `${email}` : ''}</Text>
           </View>
 
         </View>

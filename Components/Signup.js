@@ -27,6 +27,7 @@ export default function Signup({ navigation }) {
             //SAVE THE AUTH TOKEN AND REDIRECT
             await AsyncStorage.setItem('token', json.token);
             await AsyncStorage.setItem('name', json.name);
+            await AsyncStorage.setItem('email', json.email);
             Alert.alert('Account Created Successfully')
             navigation.navigate('Home')
         } else {

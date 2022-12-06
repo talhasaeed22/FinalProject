@@ -11,6 +11,7 @@ const Home = ({ navigation }) => {
     const [change, setChange] = useState(false);
     const [token, setToken] = useState('')
     const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const isFocused = useIsFocused();
 
     useEffect(()=>{
@@ -22,8 +23,12 @@ const Home = ({ navigation }) => {
     const setData = async ()=>{
         const namme = await AsyncStorage.getItem('name')
         const tokeen = await AsyncStorage.getItem('token')
+        const emmail = await AsyncStorage.getItem('email')
+
         setName(namme);
         setToken(tokeen);
+        setEmail(emmail)
+
     }
 
     const context = useContext(ModeContext)
@@ -32,6 +37,8 @@ const Home = ({ navigation }) => {
     const signout = async ()=>{
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('name')
+        await AsyncStorage.removeItem('email')
+
         Alert.alert('Signed Out Successfully')
         setChange(true)
         navigation.navigate('Login')
