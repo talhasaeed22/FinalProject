@@ -61,7 +61,7 @@ const MyDrawer = (props) => {
           <Text style={{ fontSize: 31, color: mode === 'light' ? '#181c3f' : 'white', fontWeight: 'bold', fontStyle: 'italic' }}>ELOPHILE </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: "center", padding: 15 }}>
-          <Avatar.Image source={require('./Images/profile.jpg')} size={50} />
+         {token !== null?  <Avatar.Image source={require('./Images/profile.jpg')} size={50} /> : ''}
           <View style={{ flexDirection: 'column' }}>
             <Text style={{ marginLeft: 15, fontSize: 15, color: mode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>{token !== null ? `${name}` : ''}</Text>
             <Text style={{ marginLeft: 15, fontWeight: 'bold', color: mode === 'light' ? 'gray' : 'white' }}>{token !== null ? `${email}` : ''}</Text>

@@ -1,8 +1,8 @@
-import { View, Text,StyleSheet, Dimensions  } from 'react-native'
+import { View, Text,StyleSheet, Dimensions,TouchableWithoutFeedback  } from 'react-native'
 import React from 'react'
 import { Entypo } from '@expo/vector-icons';
 import colors from '../../misc/colors';
-const AudioListItem = ({title, duration, onOptionPress}) => {
+const AudioListItem = ({title, duration, onOptionPress, onAudioPress, isPlaying, activeListItem}) => {
   const convertTime = minutes => {
     if (minutes) {
       const hrs = minutes / 60;
@@ -25,12 +25,18 @@ const AudioListItem = ({title, duration, onOptionPress}) => {
       return `${minute}:${sec}`;
     }
   };
+
+  const renderPlayPauseButton = (isPlaying)=>{
+    if(isPlaying) return <Entypo name="controller-paus" size={24} color="white" />
+    return <Entypo name="controller-play" size={24} color="white" />
+  }
   return (
     <>
     <View style={styles.leftContainer}>
+      <TouchableWithoutFeedback onPress={onAudioPress}>
       <View style={styles.leftContainer}>
-        <View style={styles.thumbnail}>
-          <Text style={styles.thumbnailText}>{title[0]}</Text>
+        <View style={[styles.thumbnail, {backgroundColor:activeListItem ? '#181c3f' : 'white', borderRadius:25}]}>
+          <Text style={styles.thumbnailText}>{activeListItem ? renderPlayPauseButton(isPlaying) : title[0]}</Text>
         </View>
         <View style={styles.titleContainer}>
           <Text numberOfLines={2} style={styles.title}>{title}</Text>
@@ -38,6 +44,7 @@ const AudioListItem = ({title, duration, onOptionPress}) => {
 
         </View>
       </View>
+      </TouchableWithoutFeedback>
       <View style={styles.rightContainer}>
       <Entypo
             onPress={onOptionPress}

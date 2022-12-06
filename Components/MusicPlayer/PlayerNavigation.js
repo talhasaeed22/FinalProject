@@ -29,11 +29,21 @@ export default function PlayerNavigation() {
           }} />
           <Tab.Screen name='MusicPlayer' component={Player} options={{
             tabBarIcon: ({ color, size }) => <FontAwesome name="compact-disc" size={size} color={color} />,
-            title:''
+            title:'PLAYER',
+            headerTitleAlign: 'center',
+            headerTintColor:'white',
+            headerStyle: {
+              backgroundColor: '#181c3f'
+            },
           }} />
           <Tab.Screen name='Playlist' component={PlayList} options={{
             tabBarIcon: ({ color, size }) => <MaterialIcons name="my-library-music" size={size} color={color} />,
-            title:''
+            title:'PLAYLIST',
+            headerTitleAlign: 'center',
+            headerTintColor:'white',
+            headerStyle: {
+              backgroundColor: '#181c3f'
+            },
           }} />
         </Tab.Navigator>
       </AudioProvide>

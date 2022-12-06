@@ -52,6 +52,7 @@ export default function App() {
           <Drawer.Screen name="Player" component={PlayerNavigation} options={{
             title: '',
             headerShown: true,
+            headerTintColor: 'white',
             headerTransparent: true,
           }} />
           <Drawer.Screen name="Setting" component={Settings} options={{
