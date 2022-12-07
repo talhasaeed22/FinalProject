@@ -139,6 +139,7 @@ const Player = () => {
   return (
     <>
       <View style={styles.container}>
+        <Text style={styles.heading}>Melophile</Text>
         <Text style={styles.audioCount}>{currentAudioIndex + 1}/{audioCount}</Text>
         <View style={styles.midBannerContainer}>
           <MaterialCommunityIcons name="music-circle" size={300} color="#181c3f" />
@@ -166,6 +167,12 @@ const Player = () => {
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  heading:{
+    textAlign:'center',
+    fontSize:20,
+    fontWeight:'bold',
+    paddingTop:12
+  },
   audioControllers: {
     width,
     flexDirection: 'row',
@@ -182,9 +189,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   audioCount: {
-    textAlign: 'right',
+    textAlign: 'center',
     color: colors.FONT_LIGHT,
-    fontSize: 14,
+    fontSize: 16,
+    fontStyle:'bold',
+    paddingTop:14,
   },
   midBannerContainer: {
     flex: 1,

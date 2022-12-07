@@ -19,7 +19,7 @@ const MyDrawer = (props) => {
   const [token, setToken] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-
+const [image, setImage] = useState('')
   const [change, setChange] = useState(false)
   const handleMode = () => {
     switchMode();
@@ -34,10 +34,12 @@ const MyDrawer = (props) => {
     const namme = await AsyncStorage.getItem('name')
     const tokeen = await AsyncStorage.getItem('token')
     const emmail = await AsyncStorage.getItem('email')
+    const immage = await AsyncStorage.getItem('image')
 
     setName(namme);
     setToken(tokeen);
     setEmail(emmail)
+    setImage(immage)
   }
 
 
@@ -48,6 +50,7 @@ const MyDrawer = (props) => {
     await AsyncStorage.removeItem('token');
     await AsyncStorage.removeItem('name')
     await AsyncStorage.removeItem('email')
+    await AsyncStorage.removeItem('image')
     Alert.alert('Signed Out Successfully')
     setChange(true)
     props.navigation.navigate('Login')
@@ -61,7 +64,7 @@ const MyDrawer = (props) => {
           <Text style={{ fontSize: 31, color: mode === 'light' ? '#181c3f' : 'white', fontWeight: 'bold', fontStyle: 'italic' }}>ELOPHILE </Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: "center", padding: 15 }}>
-         {token !== null?  <Avatar.Image source={require('./Images/profile.jpg')} size={50} /> : ''}
+         {token !== null?  <Avatar.Image source={{uri:image !== '' ? image : 'https://media.istockphoto.com/id/535695503/photo/pakistan-monument-islamabad.jpg?s=612x612&w=0&k=20&c=bNqjdf8L-5igcRB89DdMgx0kNOmyeo1J_zzXmoxxl8w='}} size={50} /> : ''}
           <View style={{ flexDirection: 'column' }}>
             <Text style={{ marginLeft: 15, fontSize: 15, color: mode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>{token !== null ? `${name}` : ''}</Text>
             <Text style={{ marginLeft: 15, fontWeight: 'bold', color: mode === 'light' ? 'gray' : 'white' }}>{token !== null ? `${email}` : ''}</Text>

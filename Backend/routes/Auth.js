@@ -31,6 +31,7 @@ router.post('/signup', [
             name: req.body.name,
             email: req.body.email,
             password: secPass,
+            image:req.body.image
         });
         const data = {
             user: {
@@ -39,7 +40,7 @@ router.post('/signup', [
         }
         success = true
         const token = jwt.sign(data, JWT_SECRET);
-        res.send({success:success, token:token, name:req.body.name, email:req.body.email});
+        res.send({success:success, token:token, name:req.body.name, email:req.body.email, image:req.body.image});
     } catch (error) {
         res.status(500).send("Internal Server Error Occurred. Please Try Again.")
     }
@@ -75,7 +76,7 @@ router.post('/login', [
         }
         success = true;
         const token  = jwt.sign(data, JWT_SECRET);
-        res.json({success:success, token:token, name:loggedinuser.name, email:loggedinuser.email});
+        res.json({success:success, token:token, name:loggedinuser.name, email:loggedinuser.email, image:loggedinuser.image});
     }catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error occurred");

@@ -38,6 +38,7 @@ const Home = ({ navigation }) => {
         await AsyncStorage.removeItem('token');
         await AsyncStorage.removeItem('name')
         await AsyncStorage.removeItem('email')
+        await AsyncStorage.removeItem('image')
 
         Alert.alert('Signed Out Successfully')
         setChange(true)

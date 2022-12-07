@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Dimensions, Image, ScrollView, Alert, Modal, Pressable } from 'react-native';
+import { Text, View, Dimensions, Image, ScrollView, Alert, Modal, Pressable, ActivityIndicator } from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import { IconButton, TextInput } from 'react-native-paper'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,27 +10,37 @@ const SigninScreen = ({ navigation }) => {
     const [showpass, setShowPass] = useState(false);
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('')
-
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSignin = async () => {
-        const response = await fetch(`http://192.168.100.122:5000/api/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email:email, password:pass})
-        });
-        const json = await response.json();
-        console.log(json.name);
-        if(json.success){
-            //SAVE THE AUTH TOKEN AND REDIRECT
-            await AsyncStorage.setItem('token', json.token);
-            await AsyncStorage.setItem('name', json.name);
-            await AsyncStorage.setItem('email', json.email);
-            Alert.alert('Login Successfully')
-            navigation.navigate('Home')
-        }else{
-            Alert.alert("Invalid Credintials");
+        if (email === '' || pass === '') {
+           Alert.alert('Please FIll All the Fields')
+        } else {
+            setIsLoading(true)
+            const response = await fetch(`http://192.168.100.122:5000/api/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email, password: pass })
+            });
+            const json = await response.json();
+            console.log(json.name);
+            if (json.success) {
+                //SAVE THE AUTH TOKEN AND REDIRECT
+                await AsyncStorage.setItem('token', json.token);
+                await AsyncStorage.setItem('name', json.name);
+                await AsyncStorage.setItem('email', json.email);
+                await AsyncStorage.setItem('image', json.image);
+
+                setIsLoading(false)
+                Alert.alert('Login Successfully')
+                setEmail(''); setPass('')
+                navigation.navigate('Home')
+            } else {
+                Alert.alert("Invalid Credintials");
+                setIsLoading(false)
+            }
         }
     }
 
@@ -61,11 +71,11 @@ const SigninScreen = ({ navigation }) => {
 
 
                 <View style={{ alignItems: 'center' }}>
-                    <IconButton
+                    {isLoading ? <ActivityIndicator /> : <IconButton
                         icon={() => (<Anticon name={'login'} size={50} color={'#181c3f'} />)}
                         size={50}
                         onPress={handleSignin}
-                    />
+                    />}
                 </View>
 
                 <View style={{ marginTop: 20 }}>
