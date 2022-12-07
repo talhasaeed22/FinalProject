@@ -2,7 +2,8 @@ import { Text, View, Alert } from 'react-native'
 import React, { Component, createContext } from 'react'
 import * as MediaLibrary from 'expo-media-library'
 import { DataProvider } from 'recyclerlistview';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Audio } from 'expo-av';
 export const AudioContext = createContext();
 export class AudioProvide extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export class AudioProvide extends Component {
       dataProvider: new DataProvider((r1, r2) => r1 !== r2),
       playbackObject: null,
       soundObject: null,
-      currentAudio: null,
+      currentAudio: {},
       isPlaying: false,
       currentAudioIndex: null,
       playbackPosition: null,
@@ -21,6 +22,23 @@ export class AudioProvide extends Component {
     }
     this.audioCount = 0;
   }
+
+  loadPreviousAudio = async () => {
+    let previousAudio = await AsyncStorage.getItem('previousAudio');
+    let currentAudio;
+    let currentAudioIndex;
+
+    if (previousAudio === null) {
+      currentAudio = this.state.audioFiles[0];
+      currentAudioIndex = 0;
+    } else {
+      previousAudio = JSON.parse(previousAudio);
+      currentAudio = previousAudio.audio;
+      currentAudioIndex = previousAudio.index;
+    }
+
+    this.setState({ ...this.state, currentAudio, currentAudioIndex });
+  };
 
   permissionALert = () => {
     Alert.alert('Permission Requried', 'This app needs to read audio files! ', [{
@@ -73,6 +91,9 @@ export class AudioProvide extends Component {
   }
   componentDidMount() {
     this.getPermission();
+    if(this.state.playbackObject === null){
+      this.setState({...this.state, playbackObject:new Audio.Sound()})
+    }
   }
 
   updateState = (prevState, newState = {}) => {
@@ -88,7 +109,7 @@ export class AudioProvide extends Component {
       </View>
     }
     return (
-      <AudioContext.Provider value={{ audioFiles, dataProvider, playbackObject, soundObject, currentAudio, updateState: this.updateState, isPlaying, currentAudioIndex, audioCount: this.audioCount, playbackPosition, playbackDuration, }}>
+      <AudioContext.Provider value={{ audioFiles, dataProvider, playbackObject, soundObject, currentAudio, updateState: this.updateState, isPlaying, currentAudioIndex, audioCount: this.audioCount, playbackPosition, playbackDuration,loadPreviousAudio:this.loadPreviousAudio }}>
         {this.props.children}
       </AudioContext.Provider>
     )
