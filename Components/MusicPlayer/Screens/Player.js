@@ -7,6 +7,7 @@ import PlayerButton from '../Components/PlayerButton';
 import { AudioContext } from '../Context/AudioProvide'
 import { pause, play, playNext, resume } from '../../misc/audioController';
 import { storeAudioForNextOpening } from '../../misc/helper';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const Player = () => {
   const { width } = Dimensions.get('window');

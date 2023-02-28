@@ -1,34 +1,62 @@
 {
   "project_info": {
-    "project_number": "359909346527",
-    "firebase_url": "https://melophile-362e0-default-rtdb.firebaseio.com",
-    "project_id": "melophile-362e0",
-    "storage_bucket": "melophile-362e0.appspot.com"
+    "project_number": "439159706925",
+    "project_id": "practice-84401",
+    "storage_bucket": "practice-84401.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:359909346527:android:0f63d96cc319c4bfae6d6a",
+        "mobilesdk_app_id": "1:439159706925:android:65f80aa53bd1aad2bfafa4",
         "android_client_info": {
           "package_name": "com.melophile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "359909346527-gul6sfgph3ae5v5g83emo7u08tbo3kto.apps.googleusercontent.com",
+          "client_id": "439159706925-c37cp89e9rhgpckl3i3a0c0qjg4rt3u2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpNs_lpaKJWmqsyiMFEYWmAwE3_KZ7WRg"
+          "current_key": "AIzaSyA-pElm0osZvTAohQvyoWzFowaaiZgUIxk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "359909346527-gul6sfgph3ae5v5g83emo7u08tbo3kto.apps.googleusercontent.com",
+              "client_id": "439159706925-c37cp89e9rhgpckl3i3a0c0qjg4rt3u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439159706925:android:3dc0df83c1fe92adbfafa4",
+        "android_client_info": {
+          "package_name": "com.practice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439159706925-c37cp89e9rhgpckl3i3a0c0qjg4rt3u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-pElm0osZvTAohQvyoWzFowaaiZgUIxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439159706925-c37cp89e9rhgpckl3i3a0c0qjg4rt3u2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

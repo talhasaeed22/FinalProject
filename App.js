@@ -5,10 +5,11 @@ import PlayerNavigation from './Components/MusicPlayer/PlayerNavigation'
 import Settings from './Components/Settings'
 import Social from './Components/SocialTabs/Social'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import ModeState from './Components/Context/ModeState'
 import AudioProvide from './Components/MusicPlayer/Context/AudioProvide';
 import Login from './Components/Login';
+import colors from './Components/misc/colors';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,10 +22,17 @@ export default function App() {
       setAppmode('light')
     }
   }
+  const MyTheme = {
+    ...DefaultTheme,
+    colors:{
+      ...DefaultTheme.colors,
+      background : colors.APP_BG
+    }
+  }
   return (
       
     <ModeState>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Drawer.Navigator screenOptions={{
         drawerStyle: {
           backgroundColor: appmode === 'light' ? 'white' : '#232624',

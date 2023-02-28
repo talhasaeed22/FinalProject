@@ -57,6 +57,9 @@ const SigninScreen = ({ navigation }) => {
                     <View>
                         <Text style={{ fontSize: 16, fontStyle: 'italic', color: 'white' }}> An Intelligent Music Player App </Text>
                     </View>
+                    <View style={{ marginTop: 13, }}>
+                        <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}> Login Form </Text>
+                    </View>
                 </View>
             </View>
 
