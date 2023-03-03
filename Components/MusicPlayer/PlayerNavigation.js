@@ -10,10 +10,22 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import AudioProvide from './Context/AudioProvide';
 import { Title } from 'react-native-paper';
+import PlaylistDetail from './Screens/PlaylistDetail';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const PlayListScreen = ()=>{
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown:false
+    }}>
+      <Stack.Screen name='PlayList' component={PlayList} />
+      <Stack.Screen name='PlaylistDetail' component={PlaylistDetail} />
+    </Stack.Navigator>
+  )
+}
 
 export default function PlayerNavigation() {
+  
   return (
     <>
       <AudioProvide>
@@ -36,7 +48,7 @@ export default function PlayerNavigation() {
               backgroundColor: '#181c3f'
             },
           }} />
-          <Tab.Screen name='Playlist' component={PlayList} options={{
+          <Tab.Screen name='Playlist' component={PlayListScreen} options={{
             tabBarIcon: ({ color, size }) => <MaterialIcons name="my-library-music" size={size} color={color} />,
             title:'PLAYLIST',
             headerTitleAlign: 'center',

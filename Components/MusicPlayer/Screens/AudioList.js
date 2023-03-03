@@ -5,7 +5,7 @@ import { RecyclerListView, LayoutProvider } from 'recyclerlistview'
 import AudioListItem from '../Components/AudioListItem';
 import OptionModal from '../Components/OptionModal';
 import { Audio } from 'expo-av';
-import { play, pause, resume, playNext } from '../../misc/audioController';
+import { play, pause, resume, playNext, selectAudio } from '../../misc/audioController';
 import { storeAudioForNextOpening } from '../../misc/helper';
 
 export class AudioList extends Component {
@@ -73,40 +73,41 @@ export class AudioList extends Component {
   // }
 
   handleAudioPress = async (audio) => {
-    const { playbackObject, soundObject, currentAudio, updateState, audioFiles } = this.context;
-    // Play Audio for the first time
-    if (soundObject === null) {
-      const playbackObject = new Audio.Sound();
-      const status = await play(playbackObject, audio.uri)
-      const index = audioFiles.indexOf(audio)
-      updateState(this.context, 
-        { playbackObject: playbackObject, soundObject: status, currentAudio: audio, isPlaying:true, currentAudioIndex:index })
+    await selectAudio(this.context ,audio)
+    // const { playbackObject, soundObject, currentAudio, updateState, audioFiles } = this.context;
+    // // Play Audio for the first time
+    // if (soundObject === null) {
+    //   const playbackObject = new Audio.Sound();
+    //   const status = await play(playbackObject, audio.uri)
+    //   const index = audioFiles.indexOf(audio)
+    //   updateState(this.context, 
+    //     { playbackObject: playbackObject, soundObject: status, currentAudio: audio, isPlaying:true, currentAudioIndex:index })
         
-        playbackObject.setOnPlaybackStatusUpdate(this.context.onPlaybackStatusUpdate)
+    //     playbackObject.setOnPlaybackStatusUpdate(this.context.onPlaybackStatusUpdate)
 
-        return storeAudioForNextOpening(audio, index)
-      // return this.setState({ ...this.state, })
-    }
+    //     return storeAudioForNextOpening(audio, index)
+    //   // return this.setState({ ...this.state, })
+    // }
 
-    //pause Audio
-    if (soundObject.isLoaded && soundObject.isPlaying && currentAudio.id === audio.id) {
-      const status = await pause(playbackObject)
-      return updateState(this.context, { soundObject: status, isPlaying:false })
-      // return this.setState({ ...this.state, soundObject: status })
-    }
+    // //pause Audio
+    // if (soundObject.isLoaded && soundObject.isPlaying && currentAudio.id === audio.id) {
+    //   const status = await pause(playbackObject)
+    //   return updateState(this.context, { soundObject: status, isPlaying:false })
+    //   // return this.setState({ ...this.state, soundObject: status })
+    // }
 
-    //resume Audio
-    if (soundObject.isLoaded && !soundObject.isPlaying && currentAudio.id === audio.id) {
-      const status = await resume(playbackObject);
-      return updateState(this.context, { soundObject: status, isPlaying:true })
-    }
-    //Select another audio
-    if (soundObject.isLoaded && currentAudio.id !== audio.id) {
-      const index = audioFiles.indexOf(audio)
-      const status = await playNext(playbackObject, audio.uri);
-      updateState(this.context, { soundObject: status, currentAudio: audio, isPlaying:true, currentAudioIndex:index })
-      return storeAudioForNextOpening(audio, index)
-    }
+    // //resume Audio
+    // if (soundObject.isLoaded && !soundObject.isPlaying && currentAudio.id === audio.id) {
+    //   const status = await resume(playbackObject);
+    //   return updateState(this.context, { soundObject: status, isPlaying:true })
+    // }
+    // //Select another audio
+    // if (soundObject.isLoaded && currentAudio.id !== audio.id) {
+    //   const index = audioFiles.indexOf(audio)
+    //   const status = await playNext(playbackObject, audio.uri);
+    //   updateState(this.context, { soundObject: status, currentAudio: audio, isPlaying:true, currentAudioIndex:index })
+    //   return storeAudioForNextOpening(audio, index)
+    // }
   }
 
   componentDidMount(){
