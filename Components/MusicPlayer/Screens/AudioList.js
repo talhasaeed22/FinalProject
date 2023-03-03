@@ -129,6 +129,13 @@ export class AudioList extends Component {
       />
     )
   }
+  navigateToPlaylist = ()=>{
+    this.context.updateState(this.context, {
+      addToPlaylist : this.currentItem
+    })
+    this.props.navigation.navigate('Playlist')
+  }
+
   render() {
     return <AudioContext.Consumer>
       {({ dataProvider, isPlaying }) => {
@@ -137,13 +144,7 @@ export class AudioList extends Component {
 
           <RecyclerListView dataProvider={dataProvider} layoutProvider={this.layoutProvider} rowRenderer={this.rowRenderer} extendedState={{isPlaying}} />
 
-          <OptionModal currentItem={this.currentItem} onClose={() => { this.setState({ ...this.state, optionModalVisible: false }) }} visible={this.state.optionModalVisible} onPlayPress={() => { Alert.alert('Functionality Comming Soon') }} onPlayListPress={()=>{
-              this.context.updateState(this.context, {
-                addToPlaylist : this.currentItem
-              })
-              this.props.navigation.navigate('Playlist')
-            }
-            }
+          <OptionModal options={[{title:'Add to Playlist', onPress: this.navigateToPlaylist }]} currentItem={this.currentItem} onClose={() => { this.setState({ ...this.state, optionModalVisible: false }) }} visible={this.state.optionModalVisible}
             />
         </View>
 

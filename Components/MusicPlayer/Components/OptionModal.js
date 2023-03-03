@@ -13,6 +13,7 @@ const OptionModal = ({
     visible,
     currentItem,
     onClose,
+    
     options,
     onPlayPress,
     onPlayListPress,
@@ -27,6 +28,11 @@ const OptionModal = ({
                         {filename}
                     </Text>
                     <View style={styles.optionContainer}>
+                        {options.map((opt, index)=>{
+                            return <TouchableWithoutFeedback key={index} onPress={opt.onPress}>
+                            <Text style={styles.option}>{opt.title}</Text>
+                        </TouchableWithoutFeedback>
+                        })}
                         {/* {options.map(optn => {
               return (
                 <TouchableWithoutFeedback
@@ -37,12 +43,12 @@ const OptionModal = ({
                 </TouchableWithoutFeedback>
               );
             })} */}
-                        <TouchableWithoutFeedback onPress={onPlayPress}>
+                        {/* <TouchableWithoutFeedback onPress={onPlayPress}>
                             <Text style={styles.option}>Play</Text>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={onPlayListPress}>
                             <Text style={styles.option}>Add to Playlist</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback> */}
                     </View>
                 </View>
                 <TouchableWithoutFeedback onPress={onClose}>
